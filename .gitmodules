@@ -1,0 +1,9 @@
+[submodule "meta-agl"]
+	path = meta-agl
+	url = https://github.com/iotbzh/meta-agl.git
+[submodule "meta-agl-demo"]
+	path = meta-agl-demo
+	url = https://github.com/iotbzh/meta-agl-demo.git
+[submodule "meta-renesas"]
+	path = meta-renesas
+	url = https://github.com/iotbzh/meta-renesas.git
