@@ -1,7 +1,7 @@
 [submodule "meta-agl"]
 	path = meta-agl
 	url = https://github.com/iotbzh/meta-agl.git
-	branch = 4d71b6fbe454ff51342ab1eb6791fad66ba98c3e
+	branch = yocto19beta
 [submodule "meta-agl-demo"]
 	path = meta-agl-demo
 	url = https://github.com/iotbzh/meta-agl-demo.git
