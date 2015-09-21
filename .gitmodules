@@ -1,11 +1,11 @@
 [submodule "meta-agl"]
 	path = meta-agl
 	url = https://github.com/iotbzh/meta-agl.git
-	branch = 4d71b6fbe454ff51342ab1eb6791fad66ba98c3e
+	branch = testsuite
 [submodule "meta-agl-demo"]
 	path = meta-agl-demo
 	url = https://github.com/iotbzh/meta-agl-demo.git
-	branch = 63d7f3539b8fc188d1c95ff2cc5095efdfdc8f93
+	branch = testsuite
 [submodule "meta-renesas"]
 	path = meta-renesas
 	url = https://github.com/iotbzh/meta-renesas.git
