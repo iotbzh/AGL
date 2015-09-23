@@ -2,9 +2,6 @@
 
 source env.sh
 
-git submodule init
-git submodule update # --remote ?
-
 # Register "upstream" remote for AGL layers
 git_add_remote_upstream meta-agl https://gerrit.automotivelinux.org/gerrit/AGL/meta-agl
 git_add_remote_upstream meta-agl-demo https://gerrit.automotivelinux.org/gerrit/AGL/meta-agl-demo
