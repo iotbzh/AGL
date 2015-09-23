@@ -9,8 +9,14 @@ git_add_remote_upstream meta-renesas https://gerrit.automotivelinux.org/gerrit/A
 
 copy_mum_zip silk
 
+if [ -z $1 ]; then
+	OUTDIR="build"
+else
+	OUTDIR="build-$1"
+fi
+
 export TEMPLATECONF=$PWD/meta-renesas/meta-rcar-gen2/conf
-source poky/oe-init-build-env "build-$1"
+source poky/oe-init-build-env $OUTDIR
 
 # overload OE variable DL_DIR from environment
 [ -d "$DL_DIR" ] &&

@@ -7,8 +7,14 @@ git_add_remote_upstream meta-agl https://gerrit.automotivelinux.org/gerrit/AGL/m
 git_add_remote_upstream meta-agl-demo https://gerrit.automotivelinux.org/gerrit/AGL/meta-agl-demo
 git_add_remote_upstream meta-renesas https://gerrit.automotivelinux.org/gerrit/AGL/meta-renesas
 
+if [ -z $1 ]; then
+	OUTDIR="build"
+else
+	OUTDIR="build-$1"
+fi
+
 export TEMPLATECONF=$PWD/meta-agl-demo/conf
-source poky/oe-init-build-env
+source poky/oe-init-build-env $OUTDIR
 
 # overload OE variable DL_DIR from environment
 [ -d "$DL_DIR" ] &&
