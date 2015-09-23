@@ -26,4 +26,4 @@ source poky/oe-init-build-env $OUTDIR
 [ -d "$SSTATE_DIR" ] &&
 	export BB_ENV_EXTRAWHITE="$BB_ENV_EXTRAWHITE SSTATE_DIR"
 
-bitbake -k agl-demo-platform
+bitbake agl-demo-platform
