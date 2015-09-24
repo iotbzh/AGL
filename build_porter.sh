@@ -26,4 +26,9 @@ source poky/oe-init-build-env $OUTDIR
 [ -d "$SSTATE_DIR" ] &&
 	export BB_ENV_EXTRAWHITE="$BB_ENV_EXTRAWHITE SSTATE_DIR"
 
-bitbake agl-demo-platform
+echo "Copy/paste following to launch build:"
+echo "    bitbake agl-demo-platform"
+echo 
+echo "Starting a sub-shell" # (if not, environment will be lost)
+exec /bin/bash --norc -l
+
