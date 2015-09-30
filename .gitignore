@@ -1,3 +1,9 @@
 binary-tmp/
 build/
 build-*/
+meta-agl/
+meta-agl-demo/
+meta-openembedded/
+meta-qt5/
+meta-renesas/
+poky/
