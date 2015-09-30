@@ -1,7 +1,7 @@
 [submodule "meta-agl"]
 	path = meta-agl
 	url = https://github.com/iotbzh/meta-agl.git
-	branch = e0cb14ae3f8eac1fb4c9c48b90e60115a0468985
+	branch = 06963e9e7e72e5bf730d08ed4b83bc12dcee4ad6
 [submodule "meta-agl-demo"]
 	path = meta-agl-demo
 	url = https://github.com/iotbzh/meta-agl-demo.git
@@ -9,7 +9,7 @@
 [submodule "meta-renesas"]
 	path = meta-renesas
 	url = https://github.com/iotbzh/meta-renesas.git
-	branch = bf30de66badcac7ef82d3758aa44c116ee791a28
+	branch = 67a55c17b1396e73dc491907fcc4e1ac2f612837
 [submodule "poky"]
 	path = poky
 	url = git://git.yoctoproject.org/poky
@@ -18,3 +18,7 @@
 	path = meta-openembedded
 	url = git://git.openembedded.org/meta-openembedded
 	branch = 9efaed99125b1c4324663d9a1b2d3319c74e7278
+[submodule "meta-qt5"]
+	path = meta-qt5
+	url = https://github.com/meta-qt5/meta-qt5
+	branch = dizzy
