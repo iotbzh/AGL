@@ -58,7 +58,12 @@ source poky/oe-init-build-env $OUTDIR
 
 ## echo "Copy/paste following to launch build:"
 ## echo "    bitbake agl-demo-platform"
-## echo 
+echo 
 echo "Starting a sub-shell" # (if not, environment will be lost)
-exec /bin/bash --norc -l
+echo 
+export PROMPT_DIRTRIM=3
+export PROMPT_COMMAND=
+export PS1="[\e[1;33mbuild-terminal\e[0m \t] \w> "
+exec /bin/bash --norc
+
 
