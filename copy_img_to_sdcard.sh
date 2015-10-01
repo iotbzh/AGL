@@ -164,7 +164,7 @@ umount $MNTDIR/part2
 
 # -----
 echo "-- Cleanup temporary stuff"
-rmdir -Rf $MNTDIR
+rm -Rf $MNTDIR
 
 echo "-- Finished."
 
