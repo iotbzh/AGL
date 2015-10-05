@@ -1,0 +1,7 @@
+cd9d5ae=master       meta-agl-demo            iotbzh=https://github.com/iotbzh/meta-agl-demo.git upstream=https://gerrit.automotivelinux.org/gerrit/AGL/meta-agl-demo
+cf50ecb=toybox       meta-agl                 iotbzh=https://github.com/iotbzh/meta-agl.git upstream=https://gerrit.automotivelinux.org/gerrit/AGL/meta-agl
+fa47581=dizzy        meta-intel-iot-security     01org=git@github.com:01org/meta-intel-iot-security.git iotbzh=git@github.com:iotbzh/meta-intel-iot-security.git origin=https://github.com/pohly/meta-intel-iot-security.git
+853dcfa=base-1.7     meta-openembedded        origin=git://git.openembedded.org/meta-openembedded
+adeca0d=dizzy        meta-qt5                 origin=git@github.com:meta-qt5/meta-qt5.git
+bf30de6=base-1.7     meta-renesas             iotbzh=https://github.com/iotbzh/meta-renesas.git upstream=https://gerrit.automotivelinux.org/gerrit/AGL/meta-renesas
+b38454c=dizzy        poky                     origin=git://git.yoctoproject.org/poky
