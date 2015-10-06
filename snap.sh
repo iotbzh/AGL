@@ -1,4 +1,4 @@
-#/bin/bash
+#!/bin/bash
 #
 # This script extracts the git configuration of the subdirectories
 # of the current directory and prints it on the standard output.

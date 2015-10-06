@@ -9,14 +9,15 @@
 # Previous files bblayers.conf and local.conf are saved in files
 # bblayers.conf~ and local.conf~
 
-[ -d ../build ] && cd ..
-if [ ! -d build/conf ]; then
+build=${1:-build}
+[ -d ../$build ] && cd ..
+if [ ! -d $build/conf ]; then
 	echo "can't found directory build/conf" >&2
 	exit 1
 fi
 
 here=$PWD
-cd build/conf
+cd $build/conf
 
 tmp=$(mktemp)
 trap "[ -f $tmp ] && rm $tmp" INT QUIT TERM EXIT

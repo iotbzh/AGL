@@ -6,14 +6,15 @@
 # build/conf.
 # The saved configuration can be restored by the script conf-set.sh
 
-[ -d ../build ] && cd ..
-if [ ! -d build/conf ]; then
+build=${1:-build}
+[ -d ../$build ] && cd ..
+if [ ! -d $build/conf ]; then
 	echo "can't found directory build/conf" >&2
 	exit 1
 fi
 
 here=$PWD
-cd build/conf
+cd $build/conf
 
 subfile() {
   [ -f "$1" ] && sed "s:^:$1 :" "$1"
