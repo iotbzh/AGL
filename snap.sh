@@ -1,4 +1,8 @@
 #/bin/bash
+#
+# This script extracts the git configuration of the subdirectories
+# of the current directory and prints it on the standard output.
+# This configuration can then be restored using the script snap-set.sh
 
 LANG=
 list=$(echo $PWD/*/.git)

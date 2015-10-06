@@ -1,4 +1,6 @@
 #/bin/bash
+#
+# This script restores the git configuration saved by the script snap.sh
 
 LANG=
 here="$PWD"
