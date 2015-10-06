@@ -1,21 +1,6 @@
 # This script intended to be sourced by another one.
 
 # syntax:
-#  git_add_remote_upstream <sub-directory> <git_repo_url>
-function git_add_remote_upstream
-{
-	directory=$1
-	repo=$2
-
-	[ -d $directory ] && {
-		cd $directory
-		git remote -v | grep upstream > /dev/null ||
-			git remote add upstream $repo
-		cd - > /dev/null
-	}
-}
-
-# syntax:
 #  copy_mum_zip <board-name> (ex: porter, silk)
 function copy_mum_zip
 {
