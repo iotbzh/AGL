@@ -1,11 +1,11 @@
 [submodule "meta-agl"]
 	path = meta-agl
 	url = https://github.com/iotbzh/meta-agl.git
-	branch = 97765246af0a6ddb65aaedaf585fc7cc1fcc0ccc
+	branch = modello-homescreen-demo
 [submodule "meta-agl-demo"]
 	path = meta-agl-demo
 	url = https://github.com/iotbzh/meta-agl-demo.git
-	branch = 145b3e901938740d2aa73a0533a2ac5d823f221b
+	branch = qt55
 [submodule "meta-renesas"]
 	path = meta-renesas
 	url = https://github.com/iotbzh/meta-renesas.git
@@ -21,4 +21,4 @@
 [submodule "meta-qt5"]
 	path = meta-qt5
 	url = https://github.com/meta-qt5/meta-qt5
-	branch = dizzy
+	branch = 52496ed3e2ec94d1d93426a766ec93ab400bc1df
