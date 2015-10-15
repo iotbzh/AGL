@@ -29,12 +29,12 @@ contact : Manuel BACHMANN (http://iot.bzh/en/author)</strong>
 
 On a [Yocto-ready system](http://www.yoctoproject.org/docs/1.8/yocto-project-qs/yocto-project-qs.html), do the following :
 
-<strong>git clone https://github.com/iotbzh/AGL
-cd AGL
-git checkout modello-homescreen-demo</strong>
+<strong>$ git clone https://github.com/iotbzh/AGL\s\s
+$ cd AGL\s\s
+$ git checkout modello-homescreen-demo</strong>
 
-   To create a Renesas R-Car Porter/Koelsch image :
+   To create a Renesas R-Car Porter/Koelsch image :\s\s
 <strong>./build_porter.sh</strong>
 
-   To create a QEMU image :
+   To create a QEMU image :\s\s
 <strong>./build_qemu.sh</strong>
