@@ -37,6 +37,10 @@ case $TARGET in
 	silk)
 		copy_mum_zip silk
 		# FIXME: export TEMPLATECONF=$PWD/meta-renesas/meta-rcar-gen2/conf
+		export TEMPLATECONF=$PWD/meta-renesas/meta-rcar-gen2/conf
+		echo "*** WARNING ***"
+		echo " silk local.conf.template is not available... using porter's one instead."
+		echo " generate ones from porter's local.conf.template"
 		;;
 	*)
 		echo "Invalid target."
@@ -47,6 +51,14 @@ esac
 #----------------------------------------
 # Import open-embedded environment
 source poky/oe-init-build-env $OUTDIR
+
+[[ $TARGET == silk ]] && {
+	mv conf/local.conf conf/local.conf.tmp
+	sed 's/porter/silk/' conf/local.conf.tmp > conf/local.conf
+	rm conf/local.conf.tmp
+	echo
+	echo "*** Please check conf/local.conf for silk proper config generation. ***"
+}
 
 # overload OE variable DL_DIR from environment
 [ -d "$DL_DIR" ] &&
