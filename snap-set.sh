@@ -4,7 +4,8 @@
 
 LANG=
 here="$PWD"
-awk '{ print "DIR  "$2; for(i=3;i<=NF;i++) { print "REPO "$i}; print "HASH "$1 }' |
+sed 's/#.*$//g' | # suppress comments
+awk '/[^[:space:]]+/ { print "DIR  "$2; for(i=3;i<=NF;i++) { print "REPO "$i}; print "HASH "$1 }' |
 while read tag value
 do
   case $tag in
