@@ -1,15 +1,15 @@
 [submodule "meta-agl"]
 	path = meta-agl
 	url = https://github.com/iotbzh/meta-agl.git
-	branch = 96e920d213ad449590995cab195675a2b9e8441d
+	branch = f793335f343758d4b662dab24e1537bf92ed9eaf
 [submodule "meta-agl-demo"]
 	path = meta-agl-demo
 	url = https://github.com/iotbzh/meta-agl-demo.git
-	branch = d272cfddde1bffa2b31cb5af382198e300d3a619
+	branch = bcffdc9f89d2f9677b1092997947b93454a4bc01
 [submodule "meta-renesas"]
 	path = meta-renesas
 	url = https://github.com/iotbzh/meta-renesas.git
-	branch = 8901cab884f9e4431781ca42291579cffc092b47
+	branch = eced0da1d9b2848f53429e8333dce22cbae29a6a
 [submodule "poky"]
 	path = poky
 	url = git://git.yoctoproject.org/poky
