@@ -38,24 +38,25 @@ MKFS_EXT3=$(which mkfs.ext3)
 MKFS_VFAT=$(which mkfs.vfat)
 
 # Check usage
-[ ! $# -eq 2 ] && {
-	echo "Usage: `basename $0` [board-name] [/dev/sdX]"
-	echo "   will look for images in tmp/deploy/images/[board-name]/"
+[ ! $# -eq 3 ] && {
+	echo "Usage: `basename $0` [board-name] [/dev/sdX] [build-dir]"
+	echo "   will look for images in [build-dir]/tmp/deploy/images/[board-name]/"
 	exit 1
 }
 
 # Catch args...
 BOARD=$1
 DEV=$2
+BUILDDIR=$3
 
 # ... and check them
-[ ! -d build-$BOARD ] && {
-	echo "Invalid board name (dir ./build-$BOARD) not found. Abording."
+[ ! -d $BUILDDIR ] && {
+	echo "Invalid board name (dir $BUILDDIR) not found. Abording."
 	exit 1
 }
 
 # Check images directory presence
-IMGDIR="build-$BOARD/tmp/deploy/images/$BOARD"
+IMGDIR="$BUILDDIR/tmp/deploy/images/$BOARD"
 if [ ! -d $IMGDIR ]; then
 	echo "Images files not found:"
 	echo "   $IMGDIR directory not found."
