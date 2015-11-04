@@ -1,11 +1,11 @@
 [submodule "meta-agl"]
 	path = meta-agl
 	url = https://github.com/iotbzh/meta-agl.git
-	branch = f793335f343758d4b662dab24e1537bf92ed9eaf
+	branch = 7017d4f847b2ce243540c5554dd72661a4a02865
 [submodule "meta-agl-demo"]
 	path = meta-agl-demo
 	url = https://github.com/iotbzh/meta-agl-demo.git
-	branch = bcffdc9f89d2f9677b1092997947b93454a4bc01
+	branch = 0ef8a183969cc9c3c51feb7dca5025e5773840f5
 [submodule "meta-renesas"]
 	path = meta-renesas
 	url = https://github.com/iotbzh/meta-renesas.git
