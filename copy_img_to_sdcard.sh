@@ -6,6 +6,10 @@
 
 export LANG=C
 
+# Constant: This constant is used to check if target block device is not a
+#  hard drive, based on total number of blocks on device.
+CARD_MAX_GB=64
+
 function umount_sdX_if_needed
 {
 	DEV=$1
@@ -141,10 +145,40 @@ echo "Module file = $MODULES"
 }
 echo
 echo "Destination devices: $DEV"
+#echo "---------------"
+
+# Catch #blocks for /dev/sdX:
+DEV_BLKS=$(cat /proc/partitions | grep $(basename $DEV) | head -1 | awk '{print $3}' -)
+[ -z $DEV_BLKS ] && {
+	echo "Access error, cannot determine disk size."
+	exit 1
+}
+DEV_GiB=$(expr $DEV_BLKS / 1000000)
+
+echo " total size = $DEV_GiB GiB"
 echo
-echo "Press a key to confirm informations above or Ctrl+C to abort..."
-read
-echo
+
+# Look if greater than limits to display warning message
+if [[ $DEV_GiB -gt $CARD_MAX_GB ]]; then
+	echo "=========================================================="
+cat << EOT
+  ___                  
+ / _ \\  ___  _ __  ___ 
+| | | |/ _ \\| '_ \\/ __|
+| |_| | (_) | |_) \\__ \\
+ \\___/ \\___/| .__/|___/
+            |_|        
+EOT
+	echo
+	echo "Target block device is > to $CARD_MAX_GB GiB."
+	echo "It look like you are trying to erase a harddrive! Stopping."
+	echo "=========================================================="
+	exit 1
+else
+	echo "Press a key to confirm informations above or Ctrl+C to abort..."
+	read
+	echo
+fi
 
 # ##############################
 # ### Real stuff starts here ###
