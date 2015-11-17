@@ -23,15 +23,12 @@ done
 $clean || exit 1
 
 #----------------------------------------
-# emit the repo state
+# fetch the remotes
 for x in $list
 do
   if [[ -d $x ]]
   then
     cd $x/..
-    #n=$(basename $PWD)
-    #b=$(git status --porcelain -b | sed 's:\.\.\..*::' | awk '{print $2}')
-    #c=$(git log --pretty=format:%h -1)
     r=$(git remote -v | awk '{print $1}' | sort -u)
     for g in $r
     do
