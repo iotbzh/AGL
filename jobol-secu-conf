@@ -1,0 +1,303 @@
+bblayers.conf # LAYER_CONF_VERSION is increased each time build/conf/bblayers.conf
+bblayers.conf # changes incompatibly
+bblayers.conf LCONF_VERSION = "6"
+bblayers.conf 
+bblayers.conf BBPATH = "${TOPDIR}"
+bblayers.conf BBFILES ?= ""
+bblayers.conf 
+bblayers.conf BBLAYERS ?= " \
+bblayers.conf   ##OEROOT##/poky/meta \
+bblayers.conf   ##OEROOT##/poky/meta-yocto \
+bblayers.conf   ##OEROOT##/poky/meta-yocto-bsp \
+bblayers.conf   ##OEROOT##/poky/../meta-agl/meta-ivi-common \
+bblayers.conf   ##OEROOT##/poky/../meta-agl/meta-agl \
+bblayers.conf   ##OEROOT##/poky/../meta-agl/meta-agl-bsp \
+bblayers.conf   ##OEROOT##/poky/../meta-agl/meta-agl-security \
+bblayers.conf   ##OEROOT##/poky/../meta-openembedded/meta-oe \
+bblayers.conf   ##OEROOT##/poky/../meta-openembedded/meta-ruby \
+bblayers.conf   ##OEROOT##/poky/../meta-openembedded/meta-multimedia \
+bblayers.conf   ##OEROOT##/poky/../meta-intel-iot-security/meta-security-smack \
+bblayers.conf   ##OEROOT##/poky/../meta-intel-iot-security/meta-security-framework \
+bblayers.conf   ##OEROOT##/poky/../meta-agl-demo \
+bblayers.conf   ##OEROOT##/poky/../meta-qt5 \
+bblayers.conf   "
+bblayers.conf BBLAYERS_NON_REMOVABLE ?= " \
+bblayers.conf   ##OEROOT##/poky/meta \
+bblayers.conf   ##OEROOT##/poky/meta-yocto \
+bblayers.conf   ##OEROOT##/poky/../meta-agl/meta-agl \
+bblayers.conf   "
+local.conf #
+local.conf # This file is your local configuration file and is where all local user settings
+local.conf # are placed. The comments in this file give some guide to the options a new user
+local.conf # to the system might want to change but pretty much any configuration option can
+local.conf # be set in this file. More adventurous users can look at local.conf.extended
+local.conf # which contains other examples of configuration which can be placed in this file
+local.conf # but new users likely won't need any of them initially.
+local.conf #
+local.conf # Lines starting with the '#' character are commented out and in some cases the
+local.conf # default values are provided as comments to show people example syntax. Enabling
+local.conf # the option is a question of removing the # character and making any change to the
+local.conf # variable as required.
+local.conf 
+local.conf #
+local.conf # Machine Selection
+local.conf #
+local.conf # You need to select a specific machine to target the build with. There are a selection
+local.conf # of emulated machines available which can boot and run in the QEMU emulator:
+local.conf #
+local.conf #MACHINE ?= "qemuarm"
+local.conf #MACHINE ?= "qemumips"
+local.conf #MACHINE ?= "qemuppc"
+local.conf #MACHINE ?= "qemux86"
+local.conf #MACHINE ?= "qemux86-64"
+local.conf #
+local.conf # There are also the following hardware board target machines included for
+local.conf # demonstration purposes:
+local.conf #
+local.conf #MACHINE ?= "beaglebone"
+local.conf #MACHINE ?= "genericx86"
+local.conf #MACHINE ?= "genericx86-64"
+local.conf #MACHINE ?= "mpc8315e-rdb"
+local.conf #MACHINE ?= "edgerouter"
+local.conf #
+local.conf # This sets the default machine to be qemux86 if no other machine is selected:
+local.conf MACHINE ??= "qemux86-64"
+local.conf 
+local.conf #
+local.conf # Where to place downloads
+local.conf #
+local.conf # During a first build the system will download many different source code tarballs
+local.conf # from various upstream projects. This can take a while, particularly if your network
+local.conf # connection is slow. These are all stored in DL_DIR. When wiping and rebuilding you
+local.conf # can preserve this directory to speed up this part of subsequent builds. This directory
+local.conf # is safe to share between multiple builds on the same machine too.
+local.conf #
+local.conf # The default is a downloads directory under TOPDIR which is the build directory.
+local.conf #
+local.conf #DL_DIR ?= "${TOPDIR}/downloads"
+local.conf 
+local.conf #
+local.conf # Where to place shared-state files
+local.conf #
+local.conf # BitBake has the capability to accelerate builds based on previously built output.
+local.conf # This is done using "shared state" files which can be thought of as cache objects
+local.conf # and this option determines where those files are placed.
+local.conf #
+local.conf # You can wipe out TMPDIR leaving this directory intact and the build would regenerate
+local.conf # from these files if no changes were made to the configuration. If changes were made
+local.conf # to the configuration, only shared state files where the state was still valid would
+local.conf # be used (done using checksums).
+local.conf #
+local.conf # The default is a sstate-cache directory under TOPDIR.
+local.conf #
+local.conf #SSTATE_DIR ?= "${TOPDIR}/sstate-cache"
+local.conf 
+local.conf #
+local.conf # Where to place the build output
+local.conf #
+local.conf # This option specifies where the bulk of the building work should be done and
+local.conf # where BitBake should place its temporary files and output. Keep in mind that
+local.conf # this includes the extraction and compilation of many applications and the toolchain
+local.conf # which can use Gigabytes of hard disk space.
+local.conf #
+local.conf # The default is a tmp directory under TOPDIR.
+local.conf #
+local.conf #TMPDIR = "${TOPDIR}/tmp"
+local.conf 
+local.conf #
+local.conf # Default policy config
+local.conf #
+local.conf # The distribution setting controls which policy settings are used as defaults.
+local.conf # The default value is fine for general Yocto project use, at least initially.
+local.conf # Ultimately when creating custom policy, people will likely end up subclassing
+local.conf # these defaults.
+local.conf #
+local.conf #DISTRO ?= "poky"
+local.conf DISTRO ?= "poky-agl"
+local.conf # As an example of a subclass there is a "bleeding" edge policy configuration
+local.conf # where many versions are set to the absolute latest code from the upstream
+local.conf # source control systems. This is just mentioned here as an example, its not
+local.conf # useful to most new users.
+local.conf # DISTRO ?= "poky-bleeding"
+local.conf 
+local.conf #
+local.conf # Package Management configuration
+local.conf #
+local.conf # This variable lists which packaging formats to enable. Multiple package backends
+local.conf # can be enabled at once and the first item listed in the variable will be used
+local.conf # to generate the root filesystems.
+local.conf # Options are:
+local.conf #  - 'package_deb' for debian style deb files
+local.conf #  - 'package_ipk' for ipk files are used by opkg (a debian style embedded package manager)
+local.conf #  - 'package_rpm' for rpm style packages
+local.conf # E.g.: PACKAGE_CLASSES ?= "package_rpm package_deb package_ipk"
+local.conf # We default to rpm:
+local.conf PACKAGE_CLASSES ?= "package_rpm"
+local.conf 
+local.conf #
+local.conf # SDK/ADT target architecture
+local.conf #
+local.conf # This variable specifies the architecture to build SDK/ADT items for and means
+local.conf # you can build the SDK packages for architectures other than the machine you are
+local.conf # running the build on (i.e. building i686 packages on an x86_64 host).
+local.conf # Supported values are i686 and x86_64
+local.conf #SDKMACHINE ?= "i686"
+local.conf 
+local.conf #
+local.conf # Extra image configuration defaults
+local.conf #
+local.conf # The EXTRA_IMAGE_FEATURES variable allows extra packages to be added to the generated
+local.conf # images. Some of these options are added to certain image types automatically. The
+local.conf # variable can contain the following options:
+local.conf #  "dbg-pkgs"       - add -dbg packages for all installed packages
+local.conf #                     (adds symbol information for debugging/profiling)
+local.conf #  "dev-pkgs"       - add -dev packages for all installed packages
+local.conf #                     (useful if you want to develop against libs in the image)
+local.conf #  "ptest-pkgs"     - add -ptest packages for all ptest-enabled packages
+local.conf #                     (useful if you want to run the package test suites)
+local.conf #  "tools-sdk"      - add development tools (gcc, make, pkgconfig etc.)
+local.conf #  "tools-debug"    - add debugging tools (gdb, strace)
+local.conf #  "eclipse-debug"  - add Eclipse remote debugging support
+local.conf #  "tools-profile"  - add profiling tools (oprofile, exmap, lttng, valgrind)
+local.conf #  "tools-testapps" - add useful testing tools (ts_print, aplay, arecord etc.)
+local.conf #  "debug-tweaks"   - make an image suitable for development
+local.conf #                     e.g. ssh root access has a blank password
+local.conf # There are other application targets that can be used here too, see
+local.conf # meta/classes/image.bbclass and meta/classes/core-image.bbclass for more details.
+local.conf # We default to enabling the debugging tweaks.
+local.conf EXTRA_IMAGE_FEATURES = "debug-tweaks"
+local.conf 
+local.conf #
+local.conf # Additional image features
+local.conf #
+local.conf # The following is a list of additional classes to use when building images which
+local.conf # enable extra features. Some available options which can be included in this variable
+local.conf # are:
+local.conf #   - 'buildstats' collect build statistics
+local.conf #   - 'image-mklibs' to reduce shared library files size for an image
+local.conf #   - 'image-prelink' in order to prelink the filesystem image
+local.conf #   - 'image-swab' to perform host system intrusion detection
+local.conf # NOTE: if listing mklibs & prelink both, then make sure mklibs is before prelink
+local.conf # NOTE: mklibs also needs to be explicitly enabled for a given image, see local.conf.extended
+local.conf USER_CLASSES ?= "buildstats image-mklibs image-prelink"
+local.conf 
+local.conf #
+local.conf # Runtime testing of images
+local.conf #
+local.conf # The build system can test booting virtual machine images under qemu (an emulator)
+local.conf # after any root filesystems are created and run tests against those images. To
+local.conf # enable this uncomment this line. See classes/testimage(-auto).bbclass for
+local.conf # further details.
+local.conf #TEST_IMAGE = "1"
+local.conf #
+local.conf # Interactive shell configuration
+local.conf #
+local.conf # Under certain circumstances the system may need input from you and to do this it
+local.conf # can launch an interactive shell. It needs to do this since the build is
+local.conf # multithreaded and needs to be able to handle the case where more than one parallel
+local.conf # process may require the user's attention. The default is iterate over the available
+local.conf # terminal types to find one that works.
+local.conf #
+local.conf # Examples of the occasions this may happen are when resolving patches which cannot
+local.conf # be applied, to use the devshell or the kernel menuconfig
+local.conf #
+local.conf # Supported values are auto, gnome, xfce, rxvt, screen, konsole (KDE 3.x only), none
+local.conf # Note: currently, Konsole support only works for KDE 3.x due to the way
+local.conf # newer Konsole versions behave
+local.conf #OE_TERMINAL = "auto"
+local.conf # By default disable interactive patch resolution (tasks will just fail instead):
+local.conf PATCHRESOLVE = "noop"
+local.conf 
+local.conf #
+local.conf # Disk Space Monitoring during the build
+local.conf #
+local.conf # Monitor the disk space during the build. If there is less that 1GB of space or less
+local.conf # than 100K inodes in any key build location (TMPDIR, DL_DIR, SSTATE_DIR), gracefully
+local.conf # shutdown the build. If there is less that 100MB or 1K inodes, perform a hard abort
+local.conf # of the build. The reason for this is that running completely out of space can corrupt
+local.conf # files and damages the build in ways which may not be easily recoverable.
+local.conf BB_DISKMON_DIRS = "\
+local.conf     STOPTASKS,${TMPDIR},1G,100K \
+local.conf     STOPTASKS,${DL_DIR},1G,100K \
+local.conf     STOPTASKS,${SSTATE_DIR},1G,100K \
+local.conf     ABORT,${TMPDIR},100M,1K \
+local.conf     ABORT,${DL_DIR},100M,1K \
+local.conf     ABORT,${SSTATE_DIR},100M,1K"
+local.conf 
+local.conf #
+local.conf # Shared-state files from other locations
+local.conf #
+local.conf # As mentioned above, shared state files are prebuilt cache data objects which can
+local.conf # used to accelerate build time. This variable can be used to configure the system
+local.conf # to search other mirror locations for these objects before it builds the data itself.
+local.conf #
+local.conf # This can be a filesystem directory, or a remote url such as http or ftp. These
+local.conf # would contain the sstate-cache results from previous builds (possibly from other
+local.conf # machines). This variable works like fetcher MIRRORS/PREMIRRORS and points to the
+local.conf # cache locations to check for the shared objects.
+local.conf # NOTE: if the mirror uses the same structure as SSTATE_DIR, you need to add PATH
+local.conf # at the end as shown in the examples below. This will be substituted with the
+local.conf # correct path within the directory structure.
+local.conf #SSTATE_MIRRORS ?= "\
+local.conf #file://.* http://someserver.tld/share/sstate/PATH;downloadfilename=PATH \n \
+local.conf #file://.* file:///some/local/dir/sstate/PATH"
+local.conf 
+local.conf ###############
+local.conf #
+local.conf # AGL specifics
+local.conf #
+local.conf ###############
+local.conf 
+local.conf # AGL includes all kernel modules here for ease-of-use during development.
+local.conf # Comment this out to be able to select the kernel modules yourself.
+local.conf IMAGE_INSTALL_append = " kernel-modules"
+local.conf 
+local.conf # Likewise as we included all kernel modules by default in the filesystem,
+local.conf # we do not need a separate tarball stored.
+local.conf # Comment this out to receive the separate modules tarbal again.
+local.conf MODULE_TARBALL_DEPLOY ?= "0"
+local.conf 
+local.conf ###############
+local.conf # /END AGL
+local.conf ###############
+local.conf 
+local.conf #
+local.conf # Qemu configuration
+local.conf #
+local.conf # By default qemu will build with a builtin VNC server where graphical output can be
+local.conf # seen. The two lines below enable the SDL backend too. This assumes there is a
+local.conf # libsdl library available on your build system.
+local.conf PACKAGECONFIG_append_pn-qemu-native = " sdl"
+local.conf PACKAGECONFIG_append_pn-nativesdk-qemu = " sdl"
+local.conf ASSUME_PROVIDED += "libsdl-native"
+local.conf 
+local.conf 
+local.conf # CONF_VERSION is increased each time build/conf/ changes incompatibly and is used to
+local.conf # track the version of this file when it was generated. This can safely be ignored if
+local.conf # this doesn't mean anything to you.
+local.conf CONF_VERSION = "1"
+local.conf 
+local.conf 
+local.conf #IMAGE_INSTALL_append = " \
+local.conf #	weston-ivi-shell-config \
+local.conf #"
+local.conf PACKAGECONFIG_append_pn-qtbase = " examples"
+local.conf 
+local.conf # Enable Smack support. May also be done by a distro config,
+local.conf # (using DISTRO_OVERRIDES and directly updating DISTRO_FEATURES,
+local.conf # without the _append).
+local.conf OVERRIDES .= ":smack"
+local.conf 
+local.conf DISTRO_FEATURES_append = " smack"
+local.conf DISTRO_FEATURES_append = " dbus-cynara"
+local.conf 
+local.conf #VIRTUAL-RUNTIME_login_manager = "toybox"
+local.conf #IMAGE_INSTALL_append = " toybox"
+local.conf 
+local.conf IMAGE_INSTALL_append = " xmlsec1 security-manager"
+local.conf 
+local.conf IMAGE_INSTALL_append = " CES2016-demo"
+local.conf IMAGE_INSTALL_append = " cryptodev-module cryptodev-linux"
+local.conf IMAGE_INSTALL_append = " strace"
+local.conf IMAGE_INSTALL_append = " ldd"
+local.conf 
