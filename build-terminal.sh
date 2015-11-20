@@ -3,16 +3,20 @@
 source env.sh
 
 function usage {
-	printf "Usage:\t`basename $0` target-name [build-outdir]\n\n"
-	printf "\t\ttarget-name:\t\"qemu\", \"porter\" or \"silk\"\n"
-	printf "\t\tbuild-outdir:\t(opt.) \"build\" by default.\n"
-	exit 1
+SCRIPTNAME=$(basename $0)
+cat << EOT
+Usage:	$SCRIPTNAME <target-name> [<build-dir>]
+
+	target-name:	"qemu", "porter" or "silk"
+	build-dir:	(optional) "build" by default.
+EOT
 }
 
 #----------------------------------------
 # Catch command line arguments
 if [[ ! ( $# -eq 1 || $# -eq 2 ) ]]; then
 	usage
+	exit 1
 fi
 
 TARGET=$1
@@ -45,6 +49,7 @@ case $TARGET in
 	*)
 		echo "Invalid target."
 		usage
+		exit 2
 		;;
 esac
 
