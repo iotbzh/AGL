@@ -25,7 +25,7 @@ shift
 if [ -z $1 ]; then
 	OUTDIR="build"
 else
-	OUTDIR="build-$1"
+	OUTDIR="$1"
 fi
 
 #----------------------------------------
