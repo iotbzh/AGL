@@ -80,7 +80,7 @@ echo "Starting a sub-shell" # (if not, environment will be lost)
 echo 
 export PROMPT_DIRTRIM=3
 export PROMPT_COMMAND=
-export PS1="[\e[1;33mbuild-terminal\e[0m \t] \w> "
+export PS1="[\[\e[1;33m\]build-terminal\[\e[0m\] \t] \w> "
 exec /bin/bash --norc
 
 
