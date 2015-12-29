@@ -1,0 +1,165 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+# vim: tabstop=4 expandtab shiftwidth=4 softtabstop=4
+
+# The MIT Licence(MIT)
+
+# Copyright (c) 2015, Yannick Gicquel -at- IoT.bzh
+
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions: The above copyright
+# notice and this permission notice shall be included in all copies or
+# substantial portions of the Software.
+
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+
+import os
+import sys
+
+import getopt
+import json
+import xml.etree.ElementTree as ET
+
+# Global variables
+sFormat = 'snap'
+remoteName = 'origin'
+#output_dir = os.path.dirname(os.path.realpath(__file__))
+
+usagemsg = """Usage:
+    xmlrepo-convert [-h] [-r <name>] [-f <format>] [inputfile]
+
+    Convert an XML repo-style manifest to another format.
+    Currently, supported output are: json, snap.
+
+Options:
+    -h, --help                  Display this help,
+    -r <remote-name>
+    --remote <remote-name>      Specify the remote name (default: origin),
+    -f <format>
+    --format <format>           Output format: json, snap (default: %s),
+
+"""
+
+def usage():
+    sys.stderr.write(usagemsg % sFormat)
+
+# Entry point ---------------------------------------------------
+if __name__ == '__main__':
+
+    try:
+        opts, args = getopt.getopt(sys.argv[1:], 
+                                    'hf:r:',
+                                   ['help', 'format=', 'remote='])
+        for o, a in opts:
+            if o in ('-h', '--help'):
+                usage()
+                sys.exit(1)
+            elif o in ('-f', '--format'):
+                if a in ('json', 'snap'):
+                    sFormat = a
+                else:
+                    raise getopt.error("format %s invalid" % str(a))
+            elif o in ('-r', '--remote'):
+                remoteName = a
+
+        if not len(args):
+            fd_in = sys.stdin
+        else:
+            if not os.path.exists(args[0]):
+                raise getopt.error("file %s not found" % str(args[0]))
+            fd_in = open(args[0], 'r')
+
+    except getopt.error, exc:
+        sys.stderr.write("Error: %s\n" % str(exc))
+        usage()
+        sys.exit(1)
+
+    try:
+        with fd_in as data:
+            manifest = data.read()
+
+            root = ET.fromstring(manifest)
+            # Basic tree validation
+            if root.tag != 'manifest':
+                sys.stderr.write("Error while parsing the XML.\n'manifest' tag not found!\n")
+                sys.exit(2)
+            assert root.tag == 'manifest'
+
+            # XML parse:  will populate following dict/vars
+            remotes = {}
+            projects = {}
+            defaultrepo = None
+            for child in root:
+                if child.tag == 'remote':
+                    #print("new remote:\t"+str(child.tag)+"\t"+str(child.attrib))
+                    remotes[child.attrib['name']] = child.attrib['fetch']
+                elif child.tag == 'default':
+                    #print("new default remote:\t"+str(child.tag)+"\t"+str(child.attrib))
+                    defaultrepo = child.attrib['remote']
+                elif child.tag == 'project':
+                    #print("new project:\t"+str(child.tag)+"\t"+str(child.attrib))
+                    new_prj = {
+                        'revision': child.attrib['revision'],
+                        'upstream': child.attrib['upstream']
+                    }
+
+                    if 'path' in child.attrib.keys():
+                        new_prj['path'] = child.attrib['path']
+
+                    if 'remote' in child.attrib.keys():
+                        new_prj['remote'] = child.attrib['remote']
+
+                    projects[child.attrib['name']] = new_prj
+
+            # Join remotes tables in 'Project' to get remote URL & path in same
+            # place
+            for k in projects.keys():
+                p = projects[k]
+                if 'path' in p.keys():
+                    assert defaultrepo != None
+                    p['remote'] = remotes[defaultrepo] + k
+                elif 'remote' in p.keys():
+                    # URL base is in remote dictionnary + the key value of the
+                    # current project:
+                    p['remote'] = remotes[p['remote']] + k
+                    # key name is equivalent to path for remote prj.
+                    p['path'] = k
+
+            # Display parsed results
+            if sFormat == 'snap':
+                for k in projects.keys():
+                    p = projects[k]
+
+                    print("%s=%s\t%s\t%s=%s" % (
+                                        p['revision'],
+                                        p['upstream'],
+                                        p['path'],
+                                        remoteName,
+                                        p['remote']
+                                    ))
+            elif sFormat == 'json':
+                jsonroot = {                
+                    'projects': projects,
+                    'remotes': remotes,
+                }
+                print(json.dumps(jsonroot, indent=4))
+
+    except Exception as e:
+        sys.stderr.write('Exception: %s\n' % str(e))
+        sys.exit(3)
+    except IOError as e:
+        sys.stderr.write('IOError: %s\n' % str(e))
+        sys.exit(4)
+
+    sys.exit(0)
+
