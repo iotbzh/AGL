@@ -289,15 +289,21 @@ local.conf # without the _append).
 local.conf OVERRIDES .= ":smack"
 local.conf 
 local.conf DISTRO_FEATURES_append = " smack"
-local.conf DISTRO_FEATURES_append = " dbus-cynara"
+local.conf #DISTRO_FEATURES_append = " dbus-cynara"
 local.conf 
 local.conf #VIRTUAL-RUNTIME_login_manager = "toybox"
 local.conf #IMAGE_INSTALL_append = " toybox"
 local.conf 
-local.conf IMAGE_INSTALL_append = " xmlsec1 security-manager"
+local.conf IMAGE_INSTALL_append = " xmlsec1"
+local.conf IMAGE_INSTALL_append = " security-manager security-manager-policy"
+local.conf IMAGE_INSTALL_append = " agl-users"
+local.conf IMAGE_INSTALL_append = " afm-main"
+local.conf IMAGE_INSTALL_append = " afm-widget-examples"
+local.conf IMAGE_INSTALL_append = " afb-daemon"
 local.conf 
 local.conf IMAGE_INSTALL_append = " CES2016-demo"
-local.conf IMAGE_INSTALL_append = " cryptodev-module cryptodev-linux"
 local.conf IMAGE_INSTALL_append = " strace"
 local.conf IMAGE_INSTALL_append = " ldd"
+local.conf IMAGE_INSTALL_append = " qtwebkit-examples-examples"
+local.conf IMAGE_INSTALL_append = " qtwebengine"
 local.conf 

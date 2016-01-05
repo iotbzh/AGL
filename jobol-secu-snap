@@ -1,7 +1,7 @@
-55840f1=master       meta-agl-demo            iotbzh=https://github.com/iotbzh/meta-agl-demo.git upstream=https://gerrit.automotivelinux.org/gerrit/AGL/meta-agl-demo
-1e3dafa=wip-security meta-agl                 iotbzh=https://github.com/iotbzh/meta-agl.git upstream=ssh://jose@gerrit.automotivelinux.org:29418/AGL/meta-agl
-0ca70e4=master       meta-intel-iot-security     01org=git@github.com:01org/meta-intel-iot-security.git iotbzh=git@github.com:iotbzh/meta-intel-iot-security.git
-511cdb8=dizzy-next   meta-openembedded        origin=git://git.openembedded.org/meta-openembedded
-adeca0d=dizzy        meta-qt5                 origin=git@github.com:meta-qt5/meta-qt5.git
+dc9b625=qtwebengine  meta-agl-demo            iotbzh=https://github.com/iotbzh/meta-agl-demo.git upstream=https://gerrit.automotivelinux.org/gerrit/AGL/meta-agl-demo
+7107ee9=wip-jobol    meta-agl                 iotbzh=https://github.com/iotbzh/meta-agl.git upstream=ssh://jose@gerrit.automotivelinux.org:29418/AGL/meta-agl
+0d1fffb=master       meta-intel-iot-security     01org=git@github.com:01org/meta-intel-iot-security.git jobol=git@github.com:jobol/meta-intel-iot-security.git
+7f1df52=dizzy        meta-openembedded        origin=git://git.openembedded.org/meta-openembedded
+d5536e3=master       meta-qt5                 origin=git@github.com:meta-qt5/meta-qt5.git
 d8ec284=agl-1.0-bsp-1.8.0 meta-renesas             iotbzh=https://github.com/iotbzh/meta-renesas.git upstream=ssh://jose@gerrit.automotivelinux.org:29418/AGL/meta-renesas
-b38454c=dizzy        poky                     origin=git://git.yoctoproject.org/poky
+6d34267=dizzy        poky                     origin=git://git.yoctoproject.org/poky
