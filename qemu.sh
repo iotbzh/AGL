@@ -12,4 +12,4 @@ qemu-system-x86_64 \
   -k fr -serial stdio \
   --append "root=/dev/hda security=smack console=ttyS0" \
   -kernel bzImage-qemux86-64.bin \
-  -hda ${image}-qemux86-64.ext3
+  -hda ${image}-qemux86-64.ext4
