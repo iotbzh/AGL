@@ -1,0 +1,4 @@
+[ -f ~/.bashrc ] && . ~/.bashrc
+export PROMPT_DIRTRIM=3
+export PROMPT_COMMAND=
+export PS1="[\[\e[1;33m\]build-terminal\[\e[0m\] \t] \w> "

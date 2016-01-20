@@ -1,5 +1,9 @@
 #!/bin/bash
 
+rcfile=$0
+[[ "$rcfile" = "${rcfile#/}" ]] && rcfile=$PWD/$rcfile
+export rcfile=${rcfile%.sh}.rc
+
 source env.sh
 
 function usage {
@@ -78,9 +82,6 @@ source poky/oe-init-build-env $OUTDIR
 echo 
 echo "Starting a sub-shell" # (if not, environment will be lost)
 echo 
-export PROMPT_DIRTRIM=3
-export PROMPT_COMMAND=
-export PS1="[\[\e[1;33m\]build-terminal\[\e[0m\] \t] \w> "
-exec /bin/bash --norc
+exec /bin/bash --rcfile $rcfile
 
 
