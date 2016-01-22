@@ -12,20 +12,21 @@ bblayers.conf   ##OEROOT##/poky/meta-yocto-bsp \
 bblayers.conf   ##OEROOT##/poky/../meta-agl/meta-ivi-common \
 bblayers.conf   ##OEROOT##/poky/../meta-agl/meta-agl \
 bblayers.conf   ##OEROOT##/poky/../meta-agl/meta-agl-bsp \
+bblayers.conf   ##OEROOT##/poky/../meta-agl-demo \
+bblayers.conf   ##OEROOT##/poky/../meta-qt5 \
 bblayers.conf   ##OEROOT##/poky/../meta-agl/meta-agl-security \
 bblayers.conf   ##OEROOT##/poky/../meta-openembedded/meta-oe \
 bblayers.conf   ##OEROOT##/poky/../meta-openembedded/meta-ruby \
 bblayers.conf   ##OEROOT##/poky/../meta-openembedded/meta-multimedia \
 bblayers.conf   ##OEROOT##/poky/../meta-intel-iot-security/meta-security-smack \
 bblayers.conf   ##OEROOT##/poky/../meta-intel-iot-security/meta-security-framework \
-bblayers.conf   ##OEROOT##/poky/../meta-agl-demo \
-bblayers.conf   ##OEROOT##/poky/../meta-qt5 \
 bblayers.conf   "
 bblayers.conf BBLAYERS_NON_REMOVABLE ?= " \
 bblayers.conf   ##OEROOT##/poky/meta \
 bblayers.conf   ##OEROOT##/poky/meta-yocto \
 bblayers.conf   ##OEROOT##/poky/../meta-agl/meta-agl \
 bblayers.conf   "
+bblayers.conf 
 local.conf #
 local.conf # This file is your local configuration file and is where all local user settings
 local.conf # are placed. The comments in this file give some guide to the options a new user
@@ -278,18 +279,14 @@ local.conf # this doesn't mean anything to you.
 local.conf CONF_VERSION = "1"
 local.conf 
 local.conf 
-local.conf #IMAGE_INSTALL_append = " \
-local.conf #	weston-ivi-shell-config \
-local.conf #"
-local.conf PACKAGECONFIG_append_pn-qtbase = " examples"
-local.conf 
 local.conf # Enable Smack support. May also be done by a distro config,
 local.conf # (using DISTRO_OVERRIDES and directly updating DISTRO_FEATURES,
 local.conf # without the _append).
 local.conf OVERRIDES .= ":smack"
 local.conf 
 local.conf DISTRO_FEATURES_append = " smack"
-local.conf #DISTRO_FEATURES_append = " dbus-cynara"
+local.conf DISTRO_FEATURES_append = " dbus-cynara"
+local.conf PACKAGECONFIG_append_pn-libcap-native = "attr"
 local.conf 
 local.conf #VIRTUAL-RUNTIME_login_manager = "toybox"
 local.conf #IMAGE_INSTALL_append = " toybox"
@@ -299,11 +296,19 @@ local.conf IMAGE_INSTALL_append = " security-manager security-manager-policy"
 local.conf IMAGE_INSTALL_append = " agl-users"
 local.conf IMAGE_INSTALL_append = " afm-main"
 local.conf IMAGE_INSTALL_append = " afm-widget-examples"
-local.conf IMAGE_INSTALL_append = " afb-daemon"
+local.conf IMAGE_INSTALL_append = " libcap-bin"
+local.conf #IMAGE_INSTALL_append = " afb-daemon"
 local.conf 
-local.conf IMAGE_INSTALL_append = " CES2016-demo"
+local.conf #IMAGE_INSTALL_append = " CES2016-demo"
 local.conf IMAGE_INSTALL_append = " strace"
 local.conf IMAGE_INSTALL_append = " ldd"
-local.conf IMAGE_INSTALL_append = " qtwebkit-examples-examples"
-local.conf IMAGE_INSTALL_append = " qtwebengine"
+local.conf IMAGE_INSTALL_append = " gdb"
+local.conf #IMAGE_INSTALL_append = " qtwebkit-examples-examples"
+local.conf #IMAGE_INSTALL_append = " qtwebengine"
+local.conf #IMAGE_INSTALL_append = " qtwebengine-examples"
 local.conf 
+local.conf #IMAGE_INSTALL_append = " weston-ivi-shell-config"
+local.conf #PACKAGECONFIG_append_pn-qtbase = " examples"
+local.conf 
+local.conf PREFERRED_VERSION_linux-yocto = "4.1%"
+local.conf PREFERRED_VERSION_linux-yocto_qemux86-64 = "4.1%"
