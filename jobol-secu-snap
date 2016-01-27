@@ -1,5 +1,5 @@
 fb2a42e=master       meta-agl-demo            iotbzh=https://github.com/iotbzh/meta-agl-demo.git origin=https://gerrit.automotivelinux.org/gerrit/AGL/meta-agl-demo
-010910d=wip-jobol    meta-agl                 iotbzh=https://github.com/iotbzh/meta-agl.git origin=ssh://jose@gerrit.automotivelinux.org:29418/AGL/meta-agl
+74a8733=wip-jobol    meta-agl                 iotbzh=https://github.com/iotbzh/meta-agl.git origin=ssh://jose@gerrit.automotivelinux.org:29418/AGL/meta-agl
 49eb80a=wip-jobol    meta-intel-iot-security     jobol=git@github.com:jobol/meta-intel-iot-security.git origin=git@github.com:01org/meta-intel-iot-security.git
 ad6133a=jethro       meta-openembedded        origin=git://git.openembedded.org/meta-openembedded
 c7cd9cb=master       meta-qt5                 origin=git@github.com:meta-qt5/meta-qt5.git
