@@ -8,5 +8,7 @@ meta-qt5/
 meta-renesas/
 poky/
 meta-intel-iot-security/
+meta-iotbzh-agl/
 DemoApps/
 .gitignore
+dev.conf
