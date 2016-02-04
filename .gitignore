@@ -1,14 +1,7 @@
 binary-tmp/
-build/
-build-*/
-meta-agl/
-meta-agl-demo/
-meta-openembedded/
-meta-qt5/
-meta-renesas/
+build*/
+meta-*/
 poky/
-meta-intel-iot-security/
-meta-iot-agl/
 DemoApps/
 .gitignore
 dev.conf
