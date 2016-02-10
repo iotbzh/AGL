@@ -17,14 +17,32 @@ af=auto.patch
 #  field 1: either + (to add the patch) or - (no patche)
 #  field 2: the path to the bb or bbappend file to use for adding patches
 #  field 3: the path the git directory of the project
+#
+# The option -s or --sync can be used to firstly synchronizes
+# the SRCREV of the bbfiles with the version pushed on branch origin/master.
+
+nosync=true
+[[ "$1" = "-s" || "$1" = "--sync" ]] && nosync=false
+branch="origin/master"
+
 ############################################################################
 asaf="SRC_URI += \" file://$af\""
+
+curbbver() {
+	local bbf="$1"
+	grep SRCREV "$bbf" | sed 's:.*"\(.*\)".*:\1:' | tr -d '\n'
+}
+
+curgitver() {
+	local repo="$1"
+	git --no-pager -C "$repo" log -n 1 --pretty=%H "$branch" | tr -d '\n'
+}
 
 mkpatch() {
 	local bbf="$1"
 	local repo="$2"
-	local rev=$(grep SRCREV "$bbf" | tr -d ' "' | sed 's:.*=::')
-	(cd $repo ; git --no-pager diff "$rev")
+	local rev=$(curbbver "$bbf")
+	git --no-pager -C "$repo" diff "$rev"
 }
 
 patchdir() {
@@ -42,8 +60,20 @@ patchfile() {
 	echo -n "$(patchdir "$bbf")/$af"
 }
 
+syncvers() {
+	local bbf="$1"
+	local repo="$2"
+	local bbv="$(curbbver "$bbf")"
+	local gitv="$(curgitver "$repo")"
+	[[ "$bbv" = "$gitv" ]] || {
+		sed -i "s:$bbv:$gitv:" "$bbf"
+		echo "revision synchronized for $bbf ($gitv)"
+	}
+}
+
 delpatch() {
 	local bbf="$1"
+	local repo="$2"
 	if grep -q "$asaf" "$bbf"; then
 		grep -v "$asaf" "$bbf" > "$bbf.tmp" && mv "$bbf.tmp" "$bbf"
 	fi
@@ -54,6 +84,7 @@ delpatch() {
 addpatch() {
 	local bbf="$1"
 	local repo="$2"
+	$nosync || eval syncvers "$bbf" "$repo"
 	local pf="$(patchfile "$bbf")"
 	local pt="$(mkpatch "$bbf" "$repo")"
 	if [[ -z "$pt" ]]; then
@@ -76,6 +107,7 @@ process() {
 	done
 }
 
+# this loops from current working dir to its parents until a file $cf is found
 while :; do
 	[[ -f "$cf" ]] && { echo "processing $PWD/$cf"; process < "$cf"; exit; }
 	[[ "$PWD" = "$HOME" ]] && break
