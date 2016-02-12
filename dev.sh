@@ -48,11 +48,12 @@ mkpatch() {
 patchdir() {
 	local d="$(dirname "$1")"
 	local b="$(basename "$1")"
+	local r="${b%%_*}"
 	local f
-	for f in "${b%%_*}" "files"; do
+	for f in "$r" "files"; do
 		[[ -d "$d/$f" ]] && { echo -n "$d/$f"; return 0; }
 	done
-	return 1
+	mkdir "$d/$r" && echo -n "$d/$r"
 }
 
 patchfile() {
@@ -74,10 +75,12 @@ syncvers() {
 delpatch() {
 	local bbf="$1"
 	local repo="$2"
+	local paf="$(patchfile "$bbf")"
 	if grep -q "$asaf" "$bbf"; then
 		grep -v "$asaf" "$bbf" > "$bbf.tmp" && mv "$bbf.tmp" "$bbf"
 	fi
-	rm "$(patchfile "$bbf")" 2> /dev/null
+	rm "$paf" 2> /dev/null
+	rmdir "$(dirname "$paf")" 2> /dev/null
 	echo "no patch for $bbf"
 }
 
