@@ -5,3 +5,4 @@ poky/
 DemoApps/
 .gitignore
 dev.conf
+build
