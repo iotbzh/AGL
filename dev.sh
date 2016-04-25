@@ -105,6 +105,9 @@ process() {
 	local line
 	while read line; do
 		set -- $line
+		[[ "$#" != 3 ]] && { echo "SKIP $line" >&2; continue; }
+		eval test -f "$2"  || { echo "FILE NOT FOUND $2" >&2; continue; }
+		eval test -d "$3"  || { echo "DIRECTORY NOT FOUND $3" >&2; continue; }
 		[[ "$#" = "3" && "$1" = "+" ]] && eval addpatch "$2" "$3"
 		[[ "$#" = "3" && "$1" = "-" ]] && eval delpatch "$2" "$3"
 	done
