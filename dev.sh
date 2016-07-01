@@ -93,7 +93,7 @@ addpatch() {
 	if [[ -z "$pt" ]]; then
 		delpatch "$bbf"
 	else
-		echo -n "$pt" > "$pf"
+		echo "$pt" > "$pf"
 		if ! grep -q "$asaf" "$bbf"; then
 			printf "$asaf" >> "$bbf"
 		fi
@@ -103,6 +103,7 @@ addpatch() {
 
 process() {
 	local line
+	sed '/^#.*/d' |
 	while read line; do
 		set -- $line
 		[[ "$#" != 3 ]] && { echo "SKIP $line" >&2; continue; }
